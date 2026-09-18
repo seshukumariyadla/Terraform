@@ -1,4 +1,4 @@
-# Exercise 4: Multi-Environment Terraform
+# Exercise 4: Multi-Environment Terraform 
 
 This exercise deploys the same infrastructure to multiple environments using Terraform modules and environment-specific variable files.
 
