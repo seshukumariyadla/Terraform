@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
-    bucket = "terraaform-iac-july26"
+    bucket = "terraform-cicd-github-actions-2026"
     key    = "terraform.tfstate"
-    region = "us-east-1"
+    region = "us-east-2"
   }
 }
