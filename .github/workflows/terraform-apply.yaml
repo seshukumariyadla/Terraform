@@ -4,7 +4,8 @@ on:
   push:
     branches:
       - main
-
+    paths:
+      - 'exercise4/**'
 jobs:
   terraform:
     runs-on: ubuntu-latest
@@ -53,4 +54,6 @@ jobs:
       # 8. Terraform Apply
       - name: Terraform Apply
         run: terraform apply -auto-approve -var-file=dev.tfvars
+        
+
 
