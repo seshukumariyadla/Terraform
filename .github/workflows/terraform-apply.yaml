@@ -1,0 +1,56 @@
+name: Terraform Apply
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: exercise4
+
+    steps:
+
+      # 1. Checkout GitHub repository
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
+
+      # 2. Install Terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      # 3. Validate AWS Login
+      - name: Validate AWS Login
+        run: aws sts get-caller-identity
+
+      # 4. Terraform Init
+      - name: Terraform Init
+        run: terraform init
+
+      # 5. Terraform Format Check
+      - name: Terraform Format Check
+        run: terraform fmt -check
+
+      # 6. Terraform Validate
+      - name: Terraform Validate
+        run: terraform validate
+
+      # 7. Terraform Plan
+      - name: Terraform Plan
+        run: terraform plan -var-file=dev.tfvars
+
+      # 8. Terraform Apply
+      - name: Terraform Apply
+        run: terraform apply -auto-approve -var-file=dev.tfvars
+
