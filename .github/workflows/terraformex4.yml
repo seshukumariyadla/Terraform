@@ -10,15 +10,21 @@ on:
   pull_request:
     branches:
       - main
+    paths:
+      - 'exercise4/**'
 
 jobs:
   terraform:
-    name: Terraform
+    name: Terraform Exercise 4
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./exercise4
 
     steps:
 
-      # 1. Checkout Terraform code
+      # 1. Checkout repository
       - name: Checkout Code
         uses: actions/checkout@v4
 
@@ -43,15 +49,15 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
-  
-
-      # 7. Terraform Validate
+      # 6. Terraform Validate
       - name: Terraform Validate
         run: terraform validate
 
-      # 8. Terraform Plan
+      # 7. Terraform Plan
       - name: Terraform Plan
         run: terraform plan -out=tfplan
+
+      # 8. Terraform Apply
+      - name: Terraform Apply
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: terraform apply -auto-approve tfplan
-
