@@ -1,5 +1,5 @@
 
-module "web01" {
+module "web001" {
 
   source = "./modules/ec2"
 
