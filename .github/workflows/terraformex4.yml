@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'exercise4/**'
 
   pull_request:
     branches:
